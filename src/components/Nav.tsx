@@ -65,7 +65,7 @@ export default function Nav({ authData, routes }: info) {
             gap: "10px",
           }}
         >
-          <img src="/favicon.ico" height="30px" alt="Logo"></img> Insane Demon
+          <img src="/favicon.ico" style={{ width: "clamp(20px, 5vw, 30px)", height: "auto" }} alt="Logo"></img> Insane Demon
           List
         </Text>
       </a>

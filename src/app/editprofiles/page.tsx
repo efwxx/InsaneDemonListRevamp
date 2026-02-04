@@ -1,21 +1,23 @@
-import jwt from "jsonwebtoken"
-import LeaderboardClient from './client'
-import NotFound from '../not-found'
-import { getServerSession } from 'next-auth'
+import jwt from "jsonwebtoken";
+import LeaderboardClient from "./client";
+import NotFound from "../not-found";
+import { getServerSession } from "next-auth";
+import { getCurrentUser } from "@/lib/auth";
 
 export default async function Home() {
+  const session = await getServerSession();
+  const user = await getCurrentUser();
 
-    const session = await getServerSession()
+  if ((user?.perms?.idl || 0) < 1) {
+    return <NotFound></NotFound>;
+  }
 
-    let req = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user/me`, {
-      headers: {
-        authorization: session?.user?.email ?  jwt.sign({id: session?.user?.email as string}, process.env.NEXTAUTH_SECRET as string) : ""
-      }
-    })
-    let data = await req.json()
-    if((data.user?.perms?.idl || 0) < 1) {
-      return <NotFound></NotFound>
-    }
+  const token = session?.user?.email
+    ? jwt.sign(
+        { id: session.user.email as string },
+        process.env.NEXTAUTH_SECRET as string,
+      )
+    : "";
 
   let req1 = await fetch(
     `${process.env.NEXT_PUBLIC_URL}/api/leaderboards?all=true`,
@@ -28,7 +30,7 @@ export default async function Home() {
       <br></br>
       <LeaderboardClient
         profiles={profiles}
-        authData={data.user}
+        authData={{ ...user, token }}
       ></LeaderboardClient>
     </main>
   );

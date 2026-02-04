@@ -29,9 +29,9 @@ export default function LeaderboardClient({profiles, authData}: info) {
   return (
     <Box style={{opacity: loading ? 0.5 : 1}}>
       <Flex gap="4" style={{placeItems: "center", justifyContent: "center"}}>
-      <img src="/favicon.ico" height="70px"></img>
+      <img src="/favicon.ico" style={{ width: "clamp(40px, 10vw, 70px)", height: "auto" }} alt="Logo"></img>
         <Text size="9" className="header" style={{display: "contents"}}>Leaderboard Editor</Text>
-        <img src="/favicon.ico" height="70px"></img>
+        <img src="/favicon.ico" style={{ width: "clamp(40px, 10vw, 70px)", height: "auto" }} alt="Logo"></img>
       </Flex>
       <br></br>
       <Grid style={{placeItems: "center"}}>

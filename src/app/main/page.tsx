@@ -7,7 +7,56 @@ export default async function Home() {
     `${process.env.NEXT_PUBLIC_URL}/api/levels?start=0&end=75`,
     { cache: "no-cache" },
   );
-  let levels = await req.json();
+
+  if (!req.ok) {
+    return (
+      <main>
+        <br></br>
+        <Flex
+          direction="column"
+          gap="4"
+          align="center"
+          style={{ padding: "20px" }}
+        >
+          <Text size="8" color="red">
+            Error Loading Levels
+          </Text>
+          <Text size="4">Status: {req.status}</Text>
+          <Text size="3">
+            The database connection failed. Please check your MongoDB
+            connection.
+          </Text>
+        </Flex>
+      </main>
+    );
+  }
+
+  let levels = [];
+  try {
+    const text = await req.text();
+    if (text) {
+      levels = JSON.parse(text);
+    }
+  } catch (error) {
+    return (
+      <main>
+        <br></br>
+        <Flex
+          direction="column"
+          gap="4"
+          align="center"
+          style={{ padding: "20px" }}
+        >
+          <Text size="8" color="red">
+            Error Parsing Response
+          </Text>
+          <Text size="3">
+            Failed to parse API response. The server may be experiencing issues.
+          </Text>
+        </Flex>
+      </main>
+    );
+  }
 
   return (
     <main>

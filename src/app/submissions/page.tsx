@@ -1,47 +1,48 @@
-import { getServerSession } from 'next-auth';
-import jwt from "jsonwebtoken"
-import NotFound from '../not-found';
-import Submissions from './client';
+import { getServerSession } from "next-auth";
+import NotFound from "../not-found";
+import Submissions from "./client";
+import { getCurrentUser } from "@/lib/auth";
+import jwt from "jsonwebtoken";
 
 export default async function RootLayout() {
+  const session = await getServerSession();
+  const user = await getCurrentUser();
 
-  const session = await getServerSession()
-
-  let req = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user/me`, {
-    headers: {
-      authorization: session?.user?.email ?  jwt.sign({id: session?.user?.email as string}, process.env.NEXTAUTH_SECRET as string) : ""
-    }
-  })
-  let data = await req.json()
-
-  if(!data?.user?.perms?.idl) {
-    return <NotFound></NotFound>
+  if (!user?.perms?.idl) {
+    return <NotFound></NotFound>;
   }
+
+  const token = session?.user?.email
+    ? jwt.sign(
+        { id: session.user.email as string },
+        process.env.NEXTAUTH_SECRET as string,
+      )
+    : "";
 
   let [req1, req2] = await Promise.all([
     await fetch(`${process.env.NEXT_PUBLIC_URL}/api/leaderboards?all=true`),
     await fetch(`${process.env.NEXT_PUBLIC_URL}/api/admins/submissions`, {
-        headers: {
-            authorization: data.user.token
-        }
-      })
-])
+      headers: {
+        authorization: token,
+      },
+    }),
+  ]);
 
-let [leaderboards, submissions] = await Promise.all([
+  let [leaderboards, submissions] = await Promise.all([
     await req1.json(),
-    await req2.json()
-])
+    await req2.json(),
+  ]);
 
   return (
     <>
-    <br></br>
-        <Submissions
+      <br></br>
+      <Submissions
         submissions={submissions}
-        authData={data.user}
+        authData={{ ...user, token }}
         leaderboards={leaderboards}
-    ></Submissions>
+      ></Submissions>
     </>
-  )
+  );
 }
 
-export const revalidate = 0
+export const revalidate = 0;

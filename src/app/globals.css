@@ -268,3 +268,115 @@ a.bright {
         opacity: 0.7 !important;
     }
 }
+
+/* Special gradient for players who beat all 150 demons */
+.all-demons-gradient {
+    background: linear-gradient(
+        90deg,
+        #ff0844 0%,
+        #ffb199 10%,
+        #ffd700 20%,
+        #44ff00 30%,
+        #00ffff 40%,
+        #0088ff 50%,
+        #8844ff 60%,
+        #ff00ff 70%,
+        #ff0066 80%,
+        #ff8800 90%,
+        #ff0844 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 300% auto;
+    animation:
+        gradient-shift 4s linear infinite,
+        rainbow-glow 2s ease-in-out infinite;
+    font-weight: bold !important;
+    filter: drop-shadow(0 0 8px rgba(255, 100, 200, 0.6))
+        drop-shadow(0 0 12px rgba(100, 200, 255, 0.4));
+    position: relative;
+}
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 300% center;
+    }
+}
+
+@keyframes rainbow-glow {
+    0%,
+    100% {
+        filter: drop-shadow(0 0 8px rgba(255, 100, 200, 0.8))
+            drop-shadow(0 0 12px rgba(100, 200, 255, 0.6))
+            drop-shadow(0 0 16px rgba(255, 200, 100, 0.4));
+    }
+    25% {
+        filter: drop-shadow(0 0 10px rgba(100, 255, 200, 0.8))
+            drop-shadow(0 0 14px rgba(200, 100, 255, 0.6))
+            drop-shadow(0 0 18px rgba(255, 255, 100, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 12px rgba(200, 100, 255, 0.8))
+            drop-shadow(0 0 16px rgba(255, 200, 100, 0.6))
+            drop-shadow(0 0 20px rgba(100, 255, 255, 0.4));
+    }
+    75% {
+        filter: drop-shadow(0 0 10px rgba(255, 200, 100, 0.8))
+            drop-shadow(0 0 14px rgba(100, 255, 200, 0.6))
+            drop-shadow(0 0 18px rgba(200, 100, 255, 0.4));
+    }
+}
+
+/* Light mode variant */
+@media (prefers-color-scheme: light) {
+    .all-demons-gradient {
+        background: linear-gradient(
+            90deg,
+            #cc0033 0%,
+            #cc8866 10%,
+            #ccaa00 20%,
+            #33cc00 30%,
+            #00cccc 40%,
+            #0066cc 50%,
+            #6633cc 60%,
+            #cc00cc 70%,
+            #cc0055 80%,
+            #cc6600 90%,
+            #cc0033 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        background-size: 300% auto;
+        filter: drop-shadow(0 0 6px rgba(200, 80, 160, 0.5))
+            drop-shadow(0 0 10px rgba(80, 160, 200, 0.3));
+    }
+
+    @keyframes rainbow-glow {
+        0%,
+        100% {
+            filter: drop-shadow(0 0 6px rgba(200, 80, 160, 0.6))
+                drop-shadow(0 0 10px rgba(80, 160, 200, 0.4))
+                drop-shadow(0 0 14px rgba(200, 160, 80, 0.3));
+        }
+        25% {
+            filter: drop-shadow(0 0 8px rgba(80, 200, 160, 0.6))
+                drop-shadow(0 0 12px rgba(160, 80, 200, 0.4))
+                drop-shadow(0 0 16px rgba(200, 200, 80, 0.3));
+        }
+        50% {
+            filter: drop-shadow(0 0 10px rgba(160, 80, 200, 0.6))
+                drop-shadow(0 0 14px rgba(200, 160, 80, 0.4))
+                drop-shadow(0 0 18px rgba(80, 200, 200, 0.3));
+        }
+        75% {
+            filter: drop-shadow(0 0 8px rgba(200, 160, 80, 0.6))
+                drop-shadow(0 0 12px rgba(80, 200, 160, 0.4))
+                drop-shadow(0 0 16px rgba(160, 80, 200, 0.3));
+        }
+    }
+}

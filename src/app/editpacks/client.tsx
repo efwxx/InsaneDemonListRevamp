@@ -88,9 +88,9 @@ export default function Packs({ authData }: info) {
     return (
         <Box>
             <Flex gap="4" style={{ placeItems: "center", justifyContent: "center" }}>
-            <img src="/favicon.ico" height="70px"></img>
+            <img src="/favicon.ico" style={{ width: "clamp(40px, 10vw, 70px)", height: "auto" }} alt="Logo"></img>
                 <Text size="9" className="header" style={{ display: "contents" }}>Pack Editor</Text>
-                <img src="/favicon.ico" height="70px"></img>
+                <img src="/favicon.ico" style={{ width: "clamp(40px, 10vw, 70px)", height: "auto" }} alt="Logo"></img>
             </Flex>
             <br></br>
             <Flex justify="center" gap="9">

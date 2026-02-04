@@ -11,9 +11,9 @@ export default async function Home() {
     <main>
       <br></br>
       <Flex gap="4" style={{placeItems: "center", justifyContent: "center"}}>
-        <img src="/favicon.ico" height="70px"></img>
+        <img src="/favicon.ico" style={{ width: "clamp(40px, 10vw, 70px)", height: "auto" }} alt="Logo"></img>
         <Text size="9" className="header" style={{display: "contents"}}>Extended List</Text>
-        <img src="/favicon.ico" height="70px"></img>
+        <img src="/favicon.ico" style={{ width: "clamp(40px, 10vw, 70px)", height: "auto" }} alt="Logo"></img>
       </Flex>
       <br></br>
       <Text size="5" className="header">This part of the list shows the levels between positions 76-150 on the list!</Text>
